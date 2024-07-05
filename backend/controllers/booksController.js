@@ -1,5 +1,6 @@
 import express from "express";
 import { Book } from "../models/Books.js";
+import ObjectID from "mongodb";
 export const router = express.Router();
 
 router.get("/books", async (req, res) => {
@@ -23,7 +24,7 @@ router.get("/books/:id", async (req, res) => {
   }
 });
 
-router.post("/newbook", async (req, res) => {
+router.put("/newbook", async (req, res) => {
   try {
     var book = new Book({
       name: req.body.name,
@@ -35,4 +36,23 @@ router.post("/newbook", async (req, res) => {
   } catch (error) {
     res.send(500).json({ error: "Internal Server Error", body: error });
   }
+});
+
+router.delete("/books/:id", async (req, res) => {
+  console.log(req.params.id);
+  Book.deleteOne({ _id: req.params.id })
+    .then((result) => {
+      res.send({ result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+router.patch("/books/:id", async (req, res) => {
+  console.log(typeof req.body.price);
+  await Book.findByIdAndUpdate(req.params.id, req.body.update)
+    .then(res.status(200).send("update success"))
+    .catch(res.status(500).send("update failed"));
 });
