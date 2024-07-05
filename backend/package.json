@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thatsyogeshjjr/BookFlow.git"
+  },
+  "keywords": [
+    "bookflow",
+    "libarary",
+    "management",
+    "mern"
+  ],
+  "author": "Yogesh Jajoria",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thatsyogeshjjr/BookFlow/issues"
+  },
+  "homepage": "https://github.com/thatsyogeshjjr/BookFlow#readme",
+  "devDependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.4.5",
+    "nodemon": "^3.1.4"
+  }
+}
