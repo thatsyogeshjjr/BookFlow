@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { connection } from "../config/database.js";
 
 const BookSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -6,4 +7,4 @@ const BookSchema = new mongoose.Schema({
   leased: { type: Boolean, required: false, default: false },
 });
 
-export const Book = mongoose.model("Books", BookSchema);
+export const Book = connection.model("Books", BookSchema);

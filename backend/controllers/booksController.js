@@ -1,26 +1,31 @@
 import express from "express";
 import { Book } from "../models/Books.js";
-import ObjectID from "mongodb";
 export const router = express.Router();
 
 router.get("/books", async (req, res) => {
-  try {
-    const result = await Book.find({});
-    res.send(result);
-  } catch {
-    res.status(500).send({ error: "internal Server Error" });
+  if (req.isAuthenticated()) {
+    try {
+      const result = await Book.find({});
+      res.send(result);
+    } catch {
+      res.status(500).send({ error: "internal Server Error" });
+    }
+  } else {
+    res.send(401, { message: "Not authenticated" });
   }
 });
 
 router.get("/books/:id", async (req, res) => {
-  try {
-    const book = await Book.findById(req.params.id);
-    if (!book) {
-      return res.status(404).json({ error: "Book not found" });
+  if (req.isAuthenticated()) {
+    try {
+      const book = await Book.findById(req.params.id);
+      if (!book) {
+        return res.status(404).json({ error: "Book not found" });
+      }
+      res.send(book);
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
     }
-    res.send(book);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
   }
 });
 
